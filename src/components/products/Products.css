@@ -1,126 +1,15 @@
-.categories-table{
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-#frmaddcate{
-  background-color: #fff;
+.product-table{
+  width: 100%;
+  margin: auto;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-#frmaddcate .col{
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-.add-btn-categories{
-  color: #ffc107;
-  background-color: transparent;
-  border: 1px solid #ffc107;
-  padding: 8px 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  transition: all 0.2s ease;
-  margin: 6px;
-  text-decoration: none;
-  margin-left: 0px;
-}
-.add-btn-categories:hover{
-  background-color: #ffc107;
-  color: white;
-  border-color: #ffc107;
-}
-.btn-categories-list{
-  color: #0F3460;
-  background-color: transparent;
-  border: 1px solid #0F3460;
-  padding: 8px 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  transition: all 0.2s ease;
-  margin: 6px;
-  margin-top: 5px;
-  text-decoration: none;
-}
-.btn-categories-list:hover{
-  background-color: #0F3460;
-  color: white;
-  border-color: #0F3460;
-}
-.hide-btn-categories{
-  color: #FF4D4D;
-  background-color: transparent;
-  border: 1px solid #FF4D4D;
-  padding: 8px 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  transition: all 0.2s ease;
-  margin: 6px;
-}
-.hide-btn-categories:hover{
-  background-color: #FF4D4D;
-  color: white;
-  border-color: #FF4D4D;
-}
-.edit-btn{
-  color: #0F3460;
-  background-color: transparent;
-  border: 1px solid #0F3460;
-  padding: 8px 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  transition: all 0.2s ease;
-  margin: 6px;
-  text-decoration: none;
-}
-.edit-btn:hover{
-  background-color: #0F3460;
-  color: white;
-  border-color: #0F3460;
-}
-#frmeditcate{
   background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
-#frmeditcate .col{
-  margin-bottom: 10px;
-  font-weight: bold;
+.product-table h3{
+  margin-bottom: 20px;
 }
-.edit-btn-categories{
-  color: #ffc107;
-  background-color: transparent;
-  border: 1px solid #ffc107;
-  padding: 8px 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  transition: all 0.2s ease;
-  margin: 6px;
-  text-decoration: none;
-}
-.edit-btn-categories:hover{
-  background-color: #ffc107;
-  color: white;
-  border-color: #ffc107;
-}
-.search-btn-catgories{
+.search-btn-products{
   color: #0F3460;
   background-color: transparent;
   border: 1px solid #0F3460;
@@ -135,7 +24,7 @@
   text-decoration: none;
   margin-right: 10px;
 }
-.search-btn-catgories:hover{
+.search-btn-products:hover{
   background-color: #0F3460;
   color: white;
   border-color: #0F3460;
@@ -143,11 +32,177 @@
 .d-flex{
   display: flex;
 }
-.form-control-search-categories{
+.form-control-search-products{
   background-color: #fff;
   padding: 5px;
   border-radius: 5px;
   margin-left: auto;
   margin-top: 5px;
   margin-bottom: 7px;
+}
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td{
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.edit-btn-products{
+  color: #0F3460;
+  background-color: transparent;
+  border: 1px solid #0F3460;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin: 6px;
+  text-decoration: none;
+}
+.edit-btn-products:hover{
+  background-color: #0F3460;
+  color: white;
+  border-color: #0F3460;
+}
+.hide-btn-products{
+  color: #FF4D4D;
+  background-color: transparent;
+  border: 1px solid #FF4D4D;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin: 6px;
+}
+.hide-btn-products:hover{
+  background-color: #FF4D4D;
+  color: white;
+  border-color: #FF4D4D;
+}
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.pagination-btn{
+  color: #0F3460;
+  background-color: transparent;
+  border: 1px solid #0F3460;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin: 6px;
+  text-decoration: none;
+}
+.pagination button:hover{
+  background-color: #0F3460;
+  color: white;
+  border-color: #0F3460;
+}
+.pagination-btn:disabled{
+  background-color: #0F3460;
+  cursor: not-allowed;
+  color: white;
+}
+.custom-modal-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex; /* Đảm bảo modal overlay luôn hiển thị khi modal mở */
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+.custom-modal{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+}
+@keyframes fadeIn{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.form-group{
+  margin-bottom: 15px;
+}
+.form-group label{
+  display: block;
+  margin-bottom: 5px;
+}
+.form-control{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.modal-buttons{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.modal-buttons .btn{
+  margin-left: 10px;
+}
+.add-btn-products{
+  color: #ffc107;
+  background-color: transparent;
+  border: 1px solid #ffc107;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin: 6px;
+  text-decoration: none;
+  margin-left: 0px;
+}
+.add-btn-products:hover{
+  background-color: #ffc107;
+  color: white;
+  border-color: #ffc107;
+}
+.btn-products-list{
+  color: #0F3460;
+  background-color: transparent;
+  border: 1px solid #0F3460;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin: 6px;
+  margin-top: 5px;
+  text-decoration: none;
+}
+.btn-products-list:hover{
+  background-color: #0F3460;
+  color: white;
+  border-color: #0F3460;
 }

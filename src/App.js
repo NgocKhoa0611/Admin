@@ -7,8 +7,13 @@ import MainContent from './components/layout/MainContent';
 import NewOrders from './components/layout/NewOrders';
 import NewCustomers from './components/dashboard/NewCustomers';
 import RevenueTable from './components/dashboard/RevenueTable';
-import ProductTable from './components/product/ProductTable';
+import ProductList from './components/products/ProductList';
 import CategoriesList from './components/categories/CategoriesList';
+import CategoriesAdd from './components/categories/CategoriesAdd';
+import CategoriesEdit from './components/categories/CategoriesEdit';
+import OrdersList from './components/orders/OrdersList';
+import OrdersEdit from './components/orders/OrdersEdit';
+import UsersList from './components/users/UsersList';
 import './App.css';
 import './components/assets/styles/index.css';
 
@@ -23,8 +28,13 @@ function App() {
             <Route path="/new-orders" element={<NewOrders />} />
             <Route path="/new-customers" element={<NewCustomers />} />
             <Route path="/revenue" element={<RevenueTable />} />
-            <Route path="/products" element={<ProductTable />} />
+            <Route path="/products" element={<ProductList />} />
             <Route path="/categories" element={<CategoriesList />} />
+            <Route path="/categories/add-categories" element={<CategoriesAdd />} />
+            <Route path="/categories/edit-categories" element={<CategoriesEdit />} />
+            <Route path="/orders" element={<OrdersList />} />
+            <Route path="/orders/edit-orders" element={<OrdersEdit />} />
+            <Route path="/users" element={<UsersList />} />
             {/* Thêm các route khác nếu cần */}
           </Routes>
         </div>

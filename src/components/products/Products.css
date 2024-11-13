@@ -1,4 +1,4 @@
-.product-table{
+.product-table {
   width: 100%;
   margin: auto;
   padding: 20px;
@@ -6,10 +6,12 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
-.product-table h3{
+
+.product-table h3 {
   margin-bottom: 20px;
 }
-.search-btn-products{
+
+.search-btn-products {
   color: #0F3460;
   background-color: transparent;
   border: 1px solid #0F3460;
@@ -24,15 +26,18 @@
   text-decoration: none;
   margin-right: 10px;
 }
-.search-btn-products:hover{
+
+.search-btn-products:hover {
   background-color: #0F3460;
   color: white;
   border-color: #0F3460;
 }
-.d-flex{
+
+.d-flex {
   display: flex;
 }
-.form-control-search-products{
+
+.form-control-search-products {
   background-color: #fff;
   padding: 5px;
   border-radius: 5px;
@@ -40,16 +45,20 @@
   margin-top: 5px;
   margin-bottom: 7px;
 }
-table{
+
+table {
   width: 100%;
   border-collapse: collapse;
 }
-th, td{
+
+th,
+td {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
 }
-.edit-btn-products{
+
+.edit-btn-products {
   color: #0F3460;
   background-color: transparent;
   border: 1px solid #0F3460;
@@ -63,12 +72,14 @@ th, td{
   margin: 6px;
   text-decoration: none;
 }
-.edit-btn-products:hover{
+
+.edit-btn-products:hover {
   background-color: #0F3460;
   color: white;
   border-color: #0F3460;
 }
-.hide-btn-products{
+
+.hide-btn-products {
   color: #FF4D4D;
   background-color: transparent;
   border: 1px solid #FF4D4D;
@@ -81,18 +92,21 @@ th, td{
   transition: all 0.2s ease;
   margin: 6px;
 }
-.hide-btn-products:hover{
+
+.hide-btn-products:hover {
   background-color: #FF4D4D;
   color: white;
   border-color: #FF4D4D;
 }
-.pagination{
+
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
-.pagination-btn{
+
+.pagination-btn {
   color: #0F3460;
   background-color: transparent;
   border: 1px solid #0F3460;
@@ -106,29 +120,34 @@ th, td{
   margin: 6px;
   text-decoration: none;
 }
-.pagination button:hover{
+
+.pagination button:hover {
   background-color: #0F3460;
   color: white;
   border-color: #0F3460;
 }
-.pagination-btn:disabled{
+
+.pagination-btn:disabled {
   background-color: #0F3460;
   cursor: not-allowed;
   color: white;
 }
-.custom-modal-overlay{
+
+.custom-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex; /* Đảm bảo modal overlay luôn hiển thị khi modal mở */
+  display: flex;
+  /* Đảm bảo modal overlay luôn hiển thị khi modal mở */
   justify-content: center;
   align-items: center;
   z-index: 10000;
 }
-.custom-modal{
+
+.custom-modal {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -137,36 +156,44 @@ th, td{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.3s ease-in-out;
 }
-@keyframes fadeIn{
+
+@keyframes fadeIn {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
-.form-group{
+
+.form-group {
   margin-bottom: 15px;
 }
-.form-group label{
+
+.form-group label {
   display: block;
   margin-bottom: 5px;
 }
-.form-control{
+
+.form-control {
   width: 100%;
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
-.modal-buttons{
+
+.modal-buttons {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
 }
-.modal-buttons .btn{
+
+.modal-buttons .btn {
   margin-left: 10px;
 }
-.add-btn-products{
+
+.add-btn-products {
   color: #ffc107;
   background-color: transparent;
   border: 1px solid #ffc107;
@@ -181,12 +208,14 @@ th, td{
   text-decoration: none;
   margin-left: 0px;
 }
-.add-btn-products:hover{
+
+.add-btn-products:hover {
   background-color: #ffc107;
   color: white;
   border-color: #ffc107;
 }
-.btn-products-list{
+
+.btn-products-list {
   color: #0F3460;
   background-color: transparent;
   border: 1px solid #0F3460;
@@ -201,7 +230,8 @@ th, td{
   margin-top: 5px;
   text-decoration: none;
 }
-.btn-products-list:hover{
+
+.btn-products-list:hover {
   background-color: #0F3460;
   color: white;
   border-color: #0F3460;

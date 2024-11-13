@@ -1,4 +1,4 @@
-// src/App.js
+// File: App.js
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -7,7 +7,9 @@ import MainContent from './components/layout/MainContent';
 import NewOrders from './components/layout/NewOrders';
 import NewCustomers from './components/dashboard/NewCustomers';
 import RevenueTable from './components/dashboard/RevenueTable';
-import ProductList from './components/products/ProductList';
+import ProductsList from './components/products/ProductsList';
+import ProductsAdd from './components/products/ProductsAdd';
+import ProductsEdit from './components/products/ProductsEdit';
 import CategoriesList from './components/categories/CategoriesList';
 import CategoriesAdd from './components/categories/CategoriesAdd';
 import CategoriesEdit from './components/categories/CategoriesEdit';
@@ -28,7 +30,9 @@ function App() {
             <Route path="/new-orders" element={<NewOrders />} />
             <Route path="/new-customers" element={<NewCustomers />} />
             <Route path="/revenue" element={<RevenueTable />} />
-            <Route path="/products" element={<ProductList />} />
+            <Route path="/product" element={<ProductsList />} />
+            <Route path="/product/add-product" element={<ProductsAdd />} />
+            <Route path="/product/edit-product/:id" element={<ProductsEdit />} />
             <Route path="/categories" element={<CategoriesList />} />
             <Route path="/categories/add-categories" element={<CategoriesAdd />} />
             <Route path="/categories/edit-categories" element={<CategoriesEdit />} />

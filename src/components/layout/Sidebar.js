@@ -1,7 +1,7 @@
 // src/components/layout/Sidebar.js
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link từ React Router
-import logo from '../assets/images/Logo1.png';
+import logo from '../assets/images/logo1.png';
 
 
 function Sidebar() {
@@ -14,7 +14,7 @@ function Sidebar() {
         <ul>
           <li><Link to={`/`}>Dashboards</Link></li>
           <li><Link to={`/categories`}>Quản lí danh mục</Link></li>
-          <li><Link to={`/products`}>Quản lí sản phẩm</Link></li>
+          <li><Link to={`/product`}>Quản lí sản phẩm</Link></li>
           <li><Link to={`/orders`}>Quản lí đơn hàng</Link></li>
           <li><Link to={`/users`}>Quản lí người dùng</Link></li>
         </ul>

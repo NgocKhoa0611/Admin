@@ -12,7 +12,7 @@ function ProductEdit() {
     price: '',
     price_promotion: '',
     img_url: ''
-  }); 
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function ProductEdit() {
   };
 
   return (
-    <form id="frmeditproduct" onSubmit={submitDuLieu}>
+    <form id="frmeditproduct" className="frmeditproduct" onSubmit={submitDuLieu}>
       <h2>Sửa sản phẩm</h2>
       <div className='col'>ID sản phẩm:
         <input value={product.product_id} type="text" className="form-control" readOnly />

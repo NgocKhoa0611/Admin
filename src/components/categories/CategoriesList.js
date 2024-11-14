@@ -1,28 +1,60 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 import './Categories.css';
+import axios from 'axios';
 
-function CategoriesList(){
-    // const [ categorieslist, ganCategorieslist ] = useState([]);
-    // const navigate = useNavigate();
-    // const anDM = (id) => {
-    //     if(window.confirm('Xóa thật không bồ') === false)
-    //     return false;
-    //     fetch(`http://localhost:3000/categories/${id}`, {method: "delete"}).then(res => res.json()).then(data => navigate(0));
-    // };
-    // useEffect(() => {
-    //     fetch("http://localhost:3000/categories").then(res => res.json()).then(data => ganCategorieslist(data));
-    // }, []);
-    return(
+function CategoriesList() {
+    const [categories, setCategories] = useState([]);
+
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch("http://localhost:8000/category");
+            if (!response.ok) throw new Error("Lỗi khi lấy danh mục");
+            const data = await response.json();
+            setCategories(data);
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+        }
+    };
+
+
+
+    const hideCategory = async (category_id, is_hidden) => {
+        const newStatus = is_hidden ? "show" : "hide";
+        if (window.confirm(`Bạn có chắc chắn muốn ${newStatus} danh mục này?`)) {
+            try {
+                const response = await axios.patch(`http://localhost:8000/category/${newStatus}/${category_id}`, {}, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.status === 200) {
+                    console.log(`Danh mục đã được ${newStatus} thành công`);
+                    fetchCategories();
+                } else {
+                    console.error("Lỗi khi thay đổi trạng thái danh mục");
+                }
+            } catch (error) {
+                console.error("Error changing category status:", error);
+            }
+        }
+    };
+
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    return (
         <div className="categories-table">
             <h3 className="title-page">Danh sách danh mục</h3>
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <Link to={`add-categories`} href="/#" id="mb-2" className="add-btn-categories">Thêm danh mục</Link>
-            <form className="d-flex" role="search">
-                <input className="form-control-search-categories" type="search" placeholder="Tìm kiếm danh mục..." aria-label="Search" />
-                <button className="search-btn-catgories" type="submit">Tìm kiếm</button>
-            </form>
+                <form className="d-flex" role="search">
+                    <input className="form-control-search-categories" type="search" placeholder="Tìm kiếm danh mục..." aria-label="Search" />
+                    <button className="search-btn-catgories" type="submit">Tìm kiếm</button>
+                </form>
             </div>
             <table id="example" className="table table-hover">
                 <thead>
@@ -34,37 +66,27 @@ function CategoriesList(){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>101</td>
-                        <td>1</td>
-                        <td>Áo thun</td>
-                        <td>
-                            <Link to={`/categories/edit-categories`} href="/#" className="edit-btn"> Sửa</Link>
-                            <button href="/#" className="hide-btn-categories"> Ẩn</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>1</td>
-                        <td>Áo sơ mi</td>
-                        <td>
-                            <Link to={`/categories/edit-categories`} href="/#" className="edit-btn"> Sửa</Link>
-                            <button href="/#" className="hide-btn-categories"> Ẩn</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>103</td>
-                        <td>1</td>
-                        <td>Áo Polo</td>
-                        <td>
-                            <Link to={`/categories/edit-categories`} href="/#" className="edit-btn"> Sửa</Link>
-                            <button href="/#" className="hide-btn-categories"> Ẩn</button>
-                        </td>
-                    </tr>
-                </tbody>    
+                    {categories.map((category) => (
+                        <tr key={category.category_id}>
+                            <td>{category.category_id}</td>
+                            <td>{category.category_parent_id}</td>
+                            <td>{category.category_name}</td>
+                            <td>
+                                <Link to={`/categories/edit-categories/${category.category_id}`} className="edit-btn">Sửa</Link>
+                                <button
+                                    className={`hide-btn-categories ${category.is_hidden ? 'show-text' : ''}`}
+                                    onClick={() => hideCategory(category.category_id, category.is_hidden)}
+                                >
+                                    {category.is_hidden ? "Hiện" : "Ẩn"}
+                                </button>
+
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
-    )
+    );
 }
 
 export default CategoriesList;

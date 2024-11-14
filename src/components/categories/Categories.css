@@ -1,12 +1,14 @@
 .categories-table{
     background-color: #fff;
-    padding: 20px;
+    padding-left: 260px;
+    padding-top: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 #frmaddcate{
   background-color: #fff;
-  padding: 20px;
+  padding-left: 260px;
+  padding-top: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -71,6 +73,16 @@
   background-color: #FF4D4D;
   color: white;
   border-color: #FF4D4D;
+}
+.show-text {
+  color: gold;
+  border-color: gold;
+}
+
+.show-text:hover {
+  background-color: gold;
+  color: white;
+  border-color: gold;
 }
 .edit-btn{
   color: #0F3460;

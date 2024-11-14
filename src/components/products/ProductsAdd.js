@@ -1,42 +1,26 @@
-import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import './Products.css';
 
-function ProductEdit() {
-  let { id } = useParams();
+function ProductAdd() {
   const [product, setProduct] = useState({
-    product_id: '',
     product_name: '',
     category_id: '',
     price: '',
-    price_promotion: 0,  
+    price_promotion: 0,
     img_url: ''
   });
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
-  // Lấy dữ liệu sản phẩm
-  useEffect(() => {
-    fetch(`http://localhost:8000/product/${id}`)
-      .then(res => res.json())
-      .then(data => setProduct(data))
-      .catch(error => {
-        console.error('Error fetching product:', error);
-        alert("Có lỗi xảy ra khi tải sản phẩm. Vui lòng thử lại sau.");
-      });
-  }, [id]);
-
   // Lấy danh sách danh mục
   useEffect(() => {
-    fetch(`http://localhost:8000/category`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
+    axios.get("http://localhost:8000/category")
+      .then((response) => {
+        setCategories(response.data);
       })
-      .then(data => setCategories(data))
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching categories:', error);
         alert("Có lỗi xảy ra khi tải danh mục. Vui lòng thử lại sau.");
       });
@@ -44,21 +28,21 @@ function ProductEdit() {
 
   const submitDuLieu = (e) => {
     e.preventDefault();
-    const url = `http://localhost:8000/product/${id}`;
-    const opt = {
-      method: "PUT",
-      body: JSON.stringify(product),
-      headers: { 'Content-Type': 'application/json' }
-    };
-    fetch(url, opt)
-      .then(res => res.json())
-      .then(data => {
-        alert("Đã cập nhật sản phẩm");
+
+    axios.post("http://localhost:8000/product", product)
+      .then((response) => {
+        alert("Đã thêm sản phẩm thành công!");
+        setProduct({
+          product_name: '',
+          category_id: '',
+          price: '',
+          price_promotion: 0,
+        });
         navigate('/product');
       })
-      .catch(error => {
-        console.error("Lỗi khi cập nhật sản phẩm:", error);
-        alert("Có lỗi xảy ra khi cập nhật sản phẩm. Vui lòng thử lại!");
+      .catch((error) => {
+        console.error("Lỗi khi thêm sản phẩm:", error);
+        alert("Có lỗi xảy ra khi thêm sản phẩm. Vui lòng thử lại!");
       });
   };
 
@@ -66,32 +50,32 @@ function ProductEdit() {
     const { name, value } = e.target;
     setProduct(prevProduct => ({
       ...prevProduct,
-      [name]: name === 'price' || name === 'price_promotion' 
-                ? (value === '' ? 0 : parseInt(value, 10))  // Đảm bảo chuyển đổi về số nguyên
-                : value
+      [name]: name === 'price' || name === 'price_promotion'
+        ? (value === '' ? 0 : parseInt(value, 10))
+        : value
     }));
   };
 
   return (
-    <form id="frmeditproduct" onSubmit={submitDuLieu}>
-      <h2>Sửa sản phẩm</h2>
+    <form id="frmaddproduct" className="frmaddproduct" onSubmit={submitDuLieu}>
+      <h2>Thêm sản phẩm</h2>
       <div className='col'>Tên sản phẩm:
-        <input 
-          value={product.product_name} 
-          type="text" 
-          className="form-control" 
-          name="product_name" 
-          onChange={handleChange} 
-          required  // Bắt buộc nhập
+        <input
+          value={product.product_name}
+          type="text"
+          className="form-control"
+          name="product_name"
+          onChange={handleChange}
+          required
         />
       </div>
       <div className='col'>Danh mục:
-        <select 
-          className="form-control" 
-          name="category_id" 
-          value={product.category_id} 
+        <select
+          className="form-control"
+          name="category_id"
+          value={product.category_id}
           onChange={handleChange}
-          required  // Bắt buộc chọn danh mục
+          required
         >
           <option value="">Chọn danh mục</option>
           {categories.map(category => (
@@ -102,41 +86,32 @@ function ProductEdit() {
         </select>
       </div>
       <div className='col'>Giá:
-        <input 
-          value={product.price} 
-          type="number" 
-          className="form-control" 
-          name="price" 
-          onChange={handleChange} 
-          required  
+        <input
+          value={product.price}
+          type="number"
+          className="form-control"
+          name="price"
+          onChange={handleChange}
+          required
         />
       </div>
       <div className='col'>Giá khuyến mãi:
-        <input 
-          value={product.price_promotion} 
-          type="number" 
-          className="form-control" 
-          name="price_promotion" 
-          onChange={handleChange} 
-          min="0"  
+        <input
+          value={product.price_promotion}
+          type="number"
+          className="form-control"
+          name="price_promotion"
+          onChange={handleChange}
+          min="0"
         />
       </div>
-      {/* <div className='col'>Hình ảnh:
-        <input 
-          value={product.img_url} 
-          type="text" 
-          className="form-control" 
-          name="img_url" 
-          onChange={handleChange} 
-        />
-      </div> */}
-      
+
       <div className="mb-3">
-        <button className="edit-btn-products" type="submit">Sửa sản phẩm</button> &nbsp;
+        <button className="add-btn-products" type="submit">Thêm sản phẩm</button> &nbsp;
         <Link to={`/product`} className="btn-products-list">Danh sách sản phẩm</Link>
       </div>
     </form>
   );
 }
 
-export default ProductEdit;
+export default ProductAdd;

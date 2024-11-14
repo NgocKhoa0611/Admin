@@ -1,39 +1,42 @@
-// File: ProductList.js
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 import './Products.css';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortOrder, setSortOrder] = useState('asc');
   const productsPerPage = 10; // Số sản phẩm trên mỗi trang
 
-  useEffect(() => {
-    fetch("http://localhost:8000/product/")
-      .then(res => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      })
-      .then(data => setProducts(data))
-      .catch(error => {
-        console.error('Error fetching products:', error);
-        alert("Có lỗi xảy ra khi tải danh sách sản phẩm. Vui lòng thử lại sau.");
-      });
-  }, []);
+  const fetchProduct = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/product");
+      if (!response.ok) throw new Error("Lỗi khi lấy danh mục");
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
   const filteredProducts = products.filter(product =>
     product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOrder === 'asc') {
+      return a.product_id - b.product_id;
+    } else {
+      return b.product_id - a.product_id;
+    }
+  })
 
-  // Tính toán các sản phẩm cần hiển thị dựa trên trang hiện tại
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -47,9 +50,38 @@ function ProductList() {
     }
   };
 
+  const handleSortById = () => {
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const hideProduct = async (product_id, is_hidden) => {
+    const newStatus = is_hidden ? "show" : "hide";
+    if (window.confirm(`Bạn có chắc chắn muốn ${newStatus} danh mục này?`)) {
+      try {
+        const response = await axios.patch(`http://localhost:8000/product/${newStatus}/${product_id}`, {}, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.status === 200) {
+          console.log(`Sản phẩm đã được ${newStatus} thành công`);
+          fetchProduct();
+        } else {
+          console.error("Lỗi khi thay đổi trạng thái sản phẩm");
+        }
+      } catch (error) {
+        console.error("Error changing product status:", error);
+      }
+    }
+  };
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
   return (
     <div className="products-table">
-      <h3 className="title-page">Danh sách sản phẩm</h3>
+      <h3 className="title-page">Danh sách chi tiết sản phẩm</h3>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <Link to={`add-product`} id="mb-2" className="add-btn-products">Thêm sản phẩm</Link>
         <form className="d-flex" role="search" onSubmit={(e) => e.preventDefault()}>
@@ -67,9 +99,13 @@ function ProductList() {
       <table id="example" className="table table-hover">
         <thead>
           <tr>
-            <th>ID sản phẩm</th>
+            <th>
+              <span>ID sản phẩm</span>
+              <button className="sort-btn" onClick={handleSortById}>
+                {sortOrder === 'asc' ? '↑' : '↓'}
+              </button>
+            </th>
             <th>Tên sản phẩm</th>
-            <th>Danh mục</th>
             <th>Giá</th>
             <th>Giá khuyến mãi</th>
             <th>Công cụ</th>
@@ -80,12 +116,20 @@ function ProductList() {
             <tr key={product.product_id}>
               <td>{product.product_id}</td>
               <td>{product.product_name}</td>
-              <td>{product.category_id}</td>
               <td>{product.price}</td>
               <td>{product.price_promotion}</td>
               <td>
+                <Link to={`/product/${product.product_id}`} className="detail-btn">
+                  Xem chi tiết
+                </Link>
+
                 <Link to={`/product/edit-product/${product.product_id}`} className="edit-btn"> Sửa</Link>
-                <button className="hide-btn-products"> Ẩn</button>
+                <button
+                  className={`hide-btn-products ${product.is_hidden ? 'show-text' : ''}`}
+                  onClick={() => hideProduct(product.product_id, product.is_hidden)}
+                >
+                  {product.is_hidden ? "Hiện" : "Ẩn"}
+                </button>
               </td>
             </tr>
           ))}

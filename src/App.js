@@ -32,12 +32,12 @@ function App() {
             <Route path="/new-customers" element={<NewCustomers />} />
             <Route path="/revenue" element={<RevenueTable />} />
             <Route path="/product" element={<ProductsList />} />
-            <Route path="/product/:id" element={<ProductsDetailList />} />
             <Route path="/product/add-product" element={<ProductsAdd />} />
             <Route path="/product/edit-product/:id" element={<ProductsEdit />} />
             <Route path="/categories" element={<CategoriesList />} />
             <Route path="/categories/add-categories" element={<CategoriesAdd />} />
             <Route path="/categories/edit-categories/:id" element={<CategoriesEdit />} />
+            <Route path="/product/:id" element={<ProductsDetailList />} />
             <Route path="/orders" element={<OrdersList />} />
             <Route path="/orders/edit-orders" element={<OrdersEdit />} />
             <Route path="/users" element={<UsersList />} />

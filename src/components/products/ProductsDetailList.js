@@ -76,12 +76,12 @@ function ProductDetailList() {
     }
   };
 
-
-
   return (
     <div className="products-table">
       <h3 className="title-page">Danh sách chi tiết sản phẩm</h3>
-      <Link to={`add-product`} className="add-btn-products">Thêm sản phẩm</Link>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <Link to={`add-detail`} id="mb-2" className="add-btn-products">Thêm chi tiết</Link>
+      </div>
 
       <table className="table table-hover">
         <thead>

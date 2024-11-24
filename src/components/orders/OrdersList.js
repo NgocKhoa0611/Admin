@@ -1,20 +1,48 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import './Orders.css';
 
-function CategoriesList(){
-    // const [ orderslist, ganOrderslist ] = useState([]);
-    // const navigate = useNavigate();
-    // const anDH = (id) => {
-    //     if(window.confirm('Xóa thật không bồ') === false)
-    //     return false;
-    //     fetch(`http://localhost:3000/orders/${id}`, {method: "delete"}).then(res => res.json()).then(data => navigate(0));
-    // };
-    // useEffect(() => {
-    //     fetch("http://localhost:3000/orders").then(res => res.json()).then(data => ganOrderslist(data));
-    // }, []);
-    return(
+function OrderList() {
+    const [ordersList, setOrdersList] = useState([]);
+    const fetchOrders = async () => {
+        try {
+            const response = await fetch("http://localhost:8000/orders");
+            if (!response.ok) throw new Error("Không thể lấy danh sách đơn hàng");
+            const data = await response.json();
+            setOrdersList(data.orders);
+        } catch (error) {
+            console.error("Lỗi khi gọi API:", error);
+        }
+    };
+    const confirmOrder = async (orderId) => {
+        try {
+            const response = await fetch(`http://localhost:8000/orders/${orderId}/confirm`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (!response.ok) throw new Error("Không thể xác nhận đơn hàng");
+
+            const updatedOrder = await response.json();
+
+            setOrdersList((prevOrders) =>
+                prevOrders.map((order) =>
+                    order.orders_id === orderId ? { ...order, order_status: updatedOrder.order_status } : order
+                )
+            );
+            alert("Đơn hàng đã được xác nhận!");
+        } catch (error) {
+            console.error("Lỗi khi xác nhận đơn hàng:", error);
+            alert("Không thể xác nhận đơn hàng. Vui lòng thử lại.");
+        }
+    };
+
+    useEffect(() => {
+        fetchOrders();
+    }, []);
+    return (
         <div className="orders-table">
             <h3 className="title-page">Danh sách đơn hàng</h3>
             <form className="d-flex" role="search">
@@ -35,49 +63,34 @@ function CategoriesList(){
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>07/10/2024</td>
-                        <td>300000</td>
-                        <td>Đã giao</td>
-                        <td>10/10/2024</td>
-                        <td>Tiền mặt</td>
-                        <td>1</td>
-                        <td>
-                            <Link to={`edit-orders`} href="/#" className="edit-btn"> Sửa</Link> 
-                            <button href="/#" className="hide-btn-orders"> Ẩn</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>08/10/2024</td>
-                        <td>3000000</td>
-                        <td>Đã giao</td>
-                        <td>11/10/2024</td>
-                        <td>MoMo</td>
-                        <td>4</td>
-                        <td>
-                            <Link to={`edit-orders`} href="/#" className="edit-btn"> Sửa</Link> 
-                            <button href="/#" className="hide-btn-orders"> Ẩn</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>06/11/2024</td>
-                        <td>30000000</td>
-                        <td>Đã giao</td>
-                        <td>11/11/2024</td>
-                        <td>PayPal</td>
-                        <td>4</td>
-                        <td>
-                            <Link to={`edit-orders`} href="/#" className="edit-btn"> Sửa</Link> 
-                            <button href="/#" className="hide-btn-orders"> Ẩn</button>
-                        </td>
-                    </tr>
+                    {ordersList.map(order => (
+                        <tr key={order.orders_id}>
+                            <td>{order.orders_id}</td>
+                            <td>{new Date(order.order_date).toLocaleDateString()}</td>
+                            <td>{order.total_price.toLocaleString('vi-VN')} VND</td>
+                            <td>{order.order_status}</td>
+                            <td>{order.payment_date ? new Date(order.payment_date).toLocaleDateString() : "Chưa thanh toán"}</td>
+                            <td>{order.payment_method}</td>
+                            <td>{order.user_id}</td>
+                            <td>
+                                {order.order_status === "Chờ xử lý" ? (
+                                    <button
+                                        className="confirm-btn"
+                                        onClick={() => confirmOrder(order.orders_id)}
+                                    >
+                                        Xác nhận
+                                    </button>
+                                ) : (
+                                    <Link to={`/orders/edit/${order.order_id}`} className="edit-btn">Cập nhật</Link>
+                                )}
+
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
     )
 }
 
-export default CategoriesList;
+export default OrderList;

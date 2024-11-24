@@ -81,7 +81,7 @@ function ProductList() {
 
   return (
     <div className="products-table">
-      <h3 className="title-page">Danh sách chi tiết sản phẩm</h3>
+      <h3 className="title-page">Danh sách sản phẩm</h3>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <Link to={`add-product`} id="mb-2" className="add-btn-products">Thêm sản phẩm</Link>
         <form className="d-flex" role="search" onSubmit={(e) => e.preventDefault()}>
@@ -99,15 +99,15 @@ function ProductList() {
       <table id="example" className="table table-hover">
         <thead>
           <tr>
-            <th>
-              <span>ID sản phẩm</span>
+            <th style={{ width: '10%' }}>
+              <span>ID</span>
               <button className="sort-btn" onClick={handleSortById}>
                 {sortOrder === 'asc' ? '↑' : '↓'}
               </button>
             </th>
             <th>Tên sản phẩm</th>
-            <th>Giá</th>
-            <th>Giá khuyến mãi</th>
+            <th style={{ width: '10%' }}>Giá</th>
+            <th style={{ width: '10%' }}> Giá khuyến mãi</th>
             <th>Công cụ</th>
           </tr>
         </thead>
@@ -120,7 +120,7 @@ function ProductList() {
               <td>{product.price_promotion}</td>
               <td>
                 <Link to={`/product/${product.product_id}`} className="detail-btn">
-                  Xem chi tiết
+                  Chi tiết
                 </Link>
 
                 <Link to={`/product/edit-product/${product.product_id}`} className="edit-btn"> Sửa</Link>
